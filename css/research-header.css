@@ -1,0 +1,46 @@
+/* Research overview header preview. Publication card remains unchanged. */
+.research-library .cat-page-hero {
+  --text-1: #f3f1e9;
+  --text-2: #c8cfcd;
+  --text-3: #abb9b7;
+  --accent: #b8d0cc;
+  --border-1: rgba(211,225,221,.22);
+  position: relative;
+  overflow: hidden;
+  background: #18282b;
+  color: var(--text-2);
+  padding-bottom: 32px;
+}
+.research-library .cat-page-hero__sub { color: #c8cfcd; }
+.research-header-scene { position: absolute; inset: 0; pointer-events: none; }
+.research-header-scene img {
+  position: absolute;
+  right: -4%;
+  top: -48%;
+  width: min(65vw, 880px);
+  opacity: .24;
+  filter: grayscale(1) contrast(.85);
+  transform: rotate(12deg);
+  animation: researchHeaderFloat 28s ease-in-out infinite alternate;
+}
+.research-header-scene::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #18282b 3%, rgba(24,40,43,.95) 35%, rgba(24,40,43,.38) 100%),
+    linear-gradient(0deg, #18282b, transparent 48%);
+}
+.research-library .cat-page-hero .container { position: relative; z-index: 1; }
+.research-library .cat-page-hero .work-cat__line { background: rgba(211,225,221,.22); }
+.research-library .cat-page-hero .case-hero__back { color: #abb9b7; }
+.research-library .cat-page-hero .case-hero__back:hover { color: #fff; }
+@keyframes researchHeaderFloat {
+  from { transform: translateY(0) rotate(12deg) scale(1); }
+  to { transform: translateY(-3%) rotate(10deg) scale(1.04); }
+}
+@media (max-width: 600px) {
+  .research-header-scene img { width: 110vw; right: -42%; top: -5%; opacity: .2; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .research-header-scene img { animation: none; }
+}

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rosetta: naming unknown columns in battery-lab data — Nataniel Ataseven</title>
+  <meta name="description" content="Rosetta is an open-source Python tool that names unknown columns in BioLogic EC-Lab .mpr files from physics, without a language model. Evaluated on five frozen hold-outs against Claude Opus 5.5.">
+  <meta name="theme-color" content="#f4f2ed">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="48x48" href="assets/favicon-48.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon-192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="assets/favicon-512.png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Rosetta: naming unknown columns in battery-lab data without a language model">
+  <meta property="og:description" content="An open-source tool that reads EC-Lab files parsers reject and names each unknown column from physics. Half as many wrong names as Claude Opus 5.5 on five frozen hold-outs.">
+  <meta property="og:url" content="https://natanielataseven.github.io/case-rosetta.html">
+  <meta property="og:image" content="https://natanielataseven.github.io/assets/og-image.png">
+  <link rel="canonical" href="https://natanielataseven.github.io/case-rosetta.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css?v=15">
+
+  <link rel="stylesheet" href="css/thesis.css?v=2">
+</head>
+<body class="project-thesis">
+
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo">Nataniel Ataseven</a>
+      <div class="nav__links">
+        <a href="research.html" class="nav__link">Research</a>
+        <a href="apps.html" class="nav__link">Apps</a>
+        <a href="websites.html" class="nav__link">Websites</a>
+        <a href="index.html#about" class="nav__link">About</a>
+        <a href="index.html#contact" class="nav__link">Contact</a>
+        <a href="cv.html" class="nav__cv">View CV</a>
+      </div>
+      <button class="nav__hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="research.html">Research</a>
+    <a href="apps.html">Apps</a>
+    <a href="websites.html">Websites</a>
+    <a href="index.html#about">About</a>
+    <a href="index.html#contact">Contact</a>
+    <a href="cv.html">View CV</a>
+  </div>
+
+  <header class="paper-cover">
+    <div class="container">
+      <div class="paper-topline"><a href="research.html">← Research</a><span>Open-source project · 2026</span></div>
+      <div class="paper-title">
+        <p class="paper-kicker">Open-source research software · Python</p>
+        <h1>Rosetta</h1>
+        <p class="paper-subtitle">Naming the unknown columns in BioLogic EC-Lab battery data from physics, without a language model</p>
+        <p class="paper-author">Nataniel Ataseven</p>
+        <p class="paper-affiliation">Independent research project<br>Source code, benchmark and every result on GitHub</p>
+        <div class="paper-details"><span>Python</span><span>GPL-3.0</span><span>5 frozen hold-outs</span><span>No language model</span></div>
+        <div class="publication-actions">
+          <a class="btn btn--primary" href="https://github.com/Nataniel0212/rosetta-eclab" target="_blank" rel="noopener">Source on GitHub ↗</a>
+          <a class="btn btn--ghost" href="https://github.com/Nataniel0212/rosetta-eclab/blob/main/docs/history.md" target="_blank" rel="noopener">How the project got here ↗</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="case-body">
+    <div class="container">
+
+      <section class="paper-abstract" aria-labelledby="abstract-heading">
+        <h2 id="abstract-heading">Abstract <span>Project overview</span></h2>
+        <p>Open-source parsers for BioLogic EC-Lab files stop reading a file when the instrument software adds a column they do not know. Rosetta reads the file anyway. It solves each unknown column's byte width from the record size, then identifies the physical quantity by testing candidate definitions against the other columns: charge as current times time, power as potential times current, impedance relations, clocks, counters and set points. It answers with a name and its evidence, reports exact duplicates, or abstains. On five hold-outs of public files, each frozen before the version that ran on it, Rosetta named 350 of 373 real columns correctly with 5 wrong names. Claude Opus 5.5 named 359 with 10 wrong names.</p>
+        <p class="paper-keywords"><strong>Keywords</strong> Binary file formats · Electrochemistry · Abstention · Benchmark design</p>
+      </section>
+      <div class="case-stats" aria-label="Project at a glance">
+        <div class="case-stat"><span class="case-stat__num">350/373</span><span class="case-stat__label">real columns named correctly</span></div>
+        <div class="case-stat"><span class="case-stat__num">5</span><span class="case-stat__label">wrong names (Claude Opus 5.5: 10)</span></div>
+        <div class="case-stat"><span class="case-stat__num">11/95</span><span class="case-stat__label">decoys named (Opus: 16)</span></div>
+        <div class="case-stat"><span class="case-stat__num">70/70</span><span class="case-stat__label">on the last hold-out</span></div>
+      </div>
+
+      <section class="case-step">
+        <span class="case-step__num">01 / Problem</span>
+        <h2>One new column makes the whole file unreadable</h2>
+        <p>Many battery and electrochemistry labs record their measurements with BioLogic potentiostats, which save binary <strong>.mpr</strong> files. The format is not documented, so open-source parsers such as galvani and yadg rely on tables of known column IDs. When the vendor adds an ID, the parser stops with "Column ID … is unknown" until someone works out what the column is and how many bytes it takes.</p>
+        <p>Reports of unknown columns have reached galvani's issue tracker more than a dozen times since 2019.</p>
+      </section>
+
+      <section class="case-step">
+        <span class="case-step__num">02 / Approach</span>
+        <h2>Measure first, then decide what should be code</h2>
+        <p><strong>A language model on raw bytes failed.</strong> An agent built on NVIDIA Nemotron solved 0 of 12 cases. Plain code recovered the byte layout in 6 of 6. Structure is code's job.</p>
+        <p><strong>A pre-registered benchmark for meaning.</strong> 126 tasks hide one real column at a time. Decoys made of noise and out-of-vocabulary columns test whether a system knows when not to answer. The pass rule was fixed before any run. Nemotron did not pass (0.41 against a code baseline of 0.63). Claude Opus 5.5 scored 0.97, so the task could be done.</p>
+        <p><strong>Then write the physics down.</strong> Most of what a model knows here is physics, and physics can be written as code. The aim became a tool that needs no model and no API key.</p>
+      </section>
+
+      <section class="case-step">
+        <span class="case-step__num">03 / Method</span>
+        <h2>Relations, units and the right to abstain</h2>
+        <p><strong>Read the file.</strong> Known columns are typed from the reference parser's map. For unknown IDs, the byte width is solved from the record size.</p>
+        <p><strong>Test the physics.</strong> Each candidate quantity is checked against the other columns. A test reports its fit and the fitted scale, and the scale must match the expected unit conversion, so a potential cannot pass as a current.</p>
+        <p><strong>Fall back carefully.</strong> A statistics vote over public files is used only for columns that are not noise, and it is vetoed when a defining relation of its guess fails.</p>
+        <p><strong>Abstain.</strong> When nothing supports a name, Rosetta says so. That answer is part of the score.</p>
+        <div class="case-tech"><span class="tech">Python</span><span class="tech">NumPy</span><span class="tech">Binary parsing</span><span class="tech">Robust regression</span><span class="tech">Pre-registration</span><span class="tech">Hold-out evaluation</span></div>
+      </section>
+
+      <section class="case-step">
+        <span class="case-step__num">04 / Results</span>
+        <h2>Fewer answers, far fewer wrong ones</h2>
+        <p>Rosetta was developed in rounds. Before each round, a new hold-out of public files nobody had looked at was frozen, and that version and Claude Opus 5.5 were run on it once.</p>
+        <div class="who-grid">
+          <div class="who"><h3>Rosetta, no model</h3><p>350 of 373 real columns named correctly. 5 wrong names. Named 11 of 95 decoys.</p></div>
+          <div class="who"><h3>Claude Opus 5.5</h3><p>359 of 373 named correctly. 10 wrong names. Named 16 of 95 decoys.</p></div>
+          <div class="who"><h3>Code-only baselines</h3><p>77–100 % per hold-out on standard files, but they name every decoy and cannot name a genuinely new column.</p></div>
+        </div>
+        <p>On the last hold-out Rosetta named all 70 columns with no wrong names. One idea raised accuracy and was still rejected: naming the column that similar files always record. It named up to 10 of 19 decoys.</p>
+      </section>
+
+      <section class="case-step">
+        <span class="case-step__num">05 / In the open</span>
+        <h2>Running it on real bug reports</h2>
+        <p>I ran Rosetta on files attached to parser issues on GitHub. It exposed two weaknesses, both now fixed with regression tests. It also showed that several "unknown" columns were not new at all: in newer EC-Lab files galvani reads only one byte of each column ID, so known IDs above 255 lose their high byte.</p>
+        <p>Of 109 newer files I tested, <strong>13 fail this way</strong>, and reading the full ID fixes 11 of them. On one public file, a maintained mirror of galvani reads without an error but puts values under the wrong column names. I <a href="https://github.com/datalab-org/galvani-mirror/issues/11" target="_blank" rel="noopener">reported it with a tested fix</a>.</p>
+      </section>
+
+      <section class="case-step">
+        <span class="case-step__num">06 / Limitations</span>
+        <h2>What the data cannot tell</h2>
+        <p>Values the instrument software computes after the fact, such as a capacitance held per segment, cannot be reconstructed reliably. Noise-like currents in impedance records and external analog inputs usually get no name. Two quantities with the same definition in a file cannot be told apart, so a prior over how common each name is decides, and the alternative is shown.</p>
+      </section>
+
+      <div class="case-insight"><strong>Key insight:</strong> for data that other work builds on, a wrong name costs more than a missing one. Rosetta trades a few percent of coverage for half the wrong answers.</div>
+
+      <div class="case-cta">
+        <a href="https://github.com/Nataniel0212/rosetta-eclab" class="btn btn--primary" target="_blank" rel="noopener">Source on GitHub ↗</a>
+        <a href="research.html" class="btn btn--ghost">← Back to Research</a>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <p>© 2026 Nataniel Ataseven</p>
+      <p><a href="index.html" style="color:inherit">← Back to portfolio</a></p>
+    </div>
+  </footer>
+
+  <script src="js/main.js?v=16"></script>
+  <script src="js/analytics.js"></script>
+</body>
+</html>

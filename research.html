@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Research — Nataniel Ataseven</title>
-  <meta name="description" content="Research by Nataniel Ataseven — published bachelor's thesis on automated risk analysis of 5.4M municipal transactions. Read the study in DiVA.">
+  <meta name="description" content="Research by Nataniel Ataseven: a published bachelor's thesis on automated risk analysis of 5.4M municipal transactions, and Rosetta, an open-source tool that names unknown columns in BioLogic EC-Lab battery data without a language model.">
   <meta name="theme-color" content="#f4f2ed">
   <link rel="icon" href="favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="48x48" href="assets/favicon-48.png">
@@ -17,6 +17,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css?v=15">
   <link rel="stylesheet" href="css/research.css?v=1">
+  <link rel="stylesheet" href="css/research-header.css?v=1">
 </head>
 <body class="research-library" data-category="research">
 
@@ -49,15 +50,18 @@
 
   <!-- Kategorihero -->
   <header class="cat-page-hero">
+    <div class="research-header-scene" aria-hidden="true">
+      <img src="assets/images/research/thesis-method.jpg" alt="">
+    </div>
     <div class="container">
       <a href="index.html#research" class="case-hero__back">← Back to portfolio</a>
       <p class="research-kicker">Publications &amp; studies</p>
       <h1>Research</h1>
-      <p class="cat-page-hero__sub">What can open payment data reveal about public spending? A published study combining Python, statistical analysis and verification against public records.</p>
+      <p class="cat-page-hero__sub">Studies where the data is messy and every answer is checked against something real: open payment data against public records, and unknown instrument data against physics.</p>
       <div class="work-cat__head">
         <span class="work-cat__num">01</span>
         <span class="work-cat__line" aria-hidden="true"></span>
-        <span class="work-cat__count">1 publication · 2026</span>
+        <span class="work-cat__count">2 studies · 2026</span>
       </div>
     </div>
   </header>
@@ -100,6 +104,24 @@
             <div class="pipeline__row">
               <div class="pipeline__box pipeline__box--result"><span class="pipeline__num">13 control deficiencies</span><span class="pipeline__lbl">documented through case verification</span></div>
             </div>
+          </div>
+        </article>
+
+        <article class="card card--featured">
+          <div>
+            <span class="card__cat">Open-source software · Pre-registered benchmark</span>
+            <h2 class="card__title"><a href="case-rosetta.html">Rosetta: naming unknown columns in battery&#8209;lab data without a language model</a></h2>
+            <p class="research-byline">Nataniel Ataseven · Independent project · 2026</p>
+            <p class="card__desc">When a lab instrument adds a new data column, open-source parsers stop reading the file. Rosetta reads it anyway and names each unknown column from physics, with the evidence. Tested on five frozen hold-outs against Claude Opus 5.5, it gave <strong>half as many wrong names</strong> and abstained where the data could not support a name.</p>
+            <div class="card__stats">
+              <span class="chip">373 real columns</span>
+              <span class="chip">5 wrong names vs 10</span>
+              <span class="chip">No language model</span>
+            </div>
+            <div class="card__tech">
+              <span class="tech">Python</span><span class="tech">NumPy</span><span class="tech">Binary formats</span><span class="tech">Benchmark design</span>
+            </div>
+            <div class="publication-actions"><a href="case-rosetta.html" class="btn btn--primary">Explore the project →</a><a href="https://github.com/Nataniel0212/rosetta-eclab" class="btn btn--ghost" target="_blank" rel="noopener">Source on GitHub ↗</a></div>
           </div>
         </article>
 

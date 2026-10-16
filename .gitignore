@@ -1,4 +1,8 @@
 .claude/
+.playwright-cli/
+output/playwright/
+SESSION_NOTES.md
+output/linkedin-utkast.md
 
 # Personliga brev — hålls lokalt (flyttade till ../portfölj_privat), publiceras aldrig
 personligt_brev_*.html
